@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'screens/login_screen.dart';
 
 void main() async {
@@ -14,6 +15,9 @@ void main() async {
 
   try {
     await Firebase.initializeApp();
+    if (FirebaseAuth.instance.currentUser == null) {
+      await FirebaseAuth.instance.signInAnonymously();
+    }
     isFirebaseInitialized = true;
   } catch (e) {
     firebaseError = e.toString();
